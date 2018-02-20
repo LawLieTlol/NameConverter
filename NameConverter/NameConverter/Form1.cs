@@ -142,12 +142,15 @@ namespace NameConverter
             for (int i = 0; i < count; i++)
             {
                 tmp = lines[i].ToLower();
-                tmp = Translit(tmp);
+                if (tmp[0].Equals('0') || tmp[0].Equals('1') || tmp[0].Equals('2'))
+                    result[i] = tmp;
+                else
+                {
+                    tmp = Translit(tmp);
+                    result[i] = tmp.Substring(0, tmp.IndexOf(' ')) + tmp.Substring(tmp.IndexOf(' ') + 1, 1)
+                                        + tmp.Substring(tmp.LastIndexOf(' ') + 1, 1) + comboBox1.SelectedItem.ToString().Substring(0, 3);
 
-                result[i] = tmp.Substring(0, tmp.IndexOf(' ')) + tmp.Substring(tmp.IndexOf(' ') + 1, 1)
-                    + tmp.Substring(tmp.LastIndexOf(' ') + 1, 1) + comboBox1.SelectedItem.ToString().Substring(0, 3);
-
-                listBox1.Items.Add(result[i]);
+                }
             }
 
             //foreach (string st in lines)
